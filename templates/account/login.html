@@ -1,0 +1,131 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+
+{% get_providers as socialaccount_providers %}
+
+
+
+
+     {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p></p>
+    {% endif %}
+{% endif %}
+
+
+
+ <div class="container">
+     <div class="row">
+            <div class="col-lg-9  " >
+
+                    <div class="carousel js-flickity ">
+                        <div class="carousel-cell ">
+                            <img src="{% static 'img/1.jpg' %}" alt="orange tree" />
+                        </div>
+                        <div class="carousel-cell ">
+                            <img src="{% static 'img/2.jpg' %}" alt="One World Trade" />
+                        </div>
+                        <div class="carousel-cell">
+                            <img src="{% static 'img/3.jpg' %}" alt="drizzle" />
+                        </div>
+                        <div class="carousel-cell">
+                            <img src="{% static 'img/1.jpg' %}" alt="cat nose" />
+                        </div>
+                        <div class="carousel-cell">
+                            <img src="{% static 'img/2.jpg' %}" alt="contrail" />
+                        </div>
+                        <div class="carousel-cell">
+                         <img src="{% static 'img/3.jpg' %}" alt="golden hour" />
+                        </div>
+  <div class="carousel-cell">
+    <img src="{% static 'img/IIT-BHU-1.jpg' %}" alt="flight formation" />
+  </div>
+</div>
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-3 ">
+                <div class="login-panel panel panel-default" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="login" method="POST" action="{% url 'account_login' %}">
+                            {% csrf_token %}
+                               <div class="row">
+									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
+										<div class="form-group">
+											{{ form.as_p }}
+										<div class="form-group">
+                                            <button type="submit" class="btn btn-md btn-primary btn-block" value="Sign in">{% trans "Sign in" %}</button>
+										</div>
+									</div>
+								</div>
+                                    {% if redirect_field_value %}
+                                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                                    {% endif %}
+
+
+
+                                   <input type="hidden" name="next" value="{{ next }}" >
+                               </div>
+                        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+           <div class="col-lg-3">
+               {% if socialaccount_providers %}
+
+
+<div class="socialaccount_ballot">
+
+  <ul class="socialaccount_providers">
+   {% include "socialaccount/snippets/provider_list.html"  with  process="login" %}
+  </ul>
+
+
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+
+{% endif %}
+
+           </div>
+     </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+{% if not user.is_authenticated %}
+$("ul.nav.navbar-nav.navbar-right").css("display","none");
+{% endif %}
+</script>
+{% endblock %}

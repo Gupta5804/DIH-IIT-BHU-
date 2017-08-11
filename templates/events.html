@@ -1,0 +1,46 @@
+{% extends 'home.html' %}
+
+
+{% block apps %}
+
+    <h1>{{ title }}</h1>
+
+{% for obj in object_list %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="thumbnail">
+      {%  if obj.image %}
+        <img src="{{ obj.image.url }}" class="img-responsive">
+      {% endif %}
+      <div class="caption">
+       <h3>{{ obj.title }}<small><br>{{ obj.timestamp|timesince }} ago</small></h3>
+
+        <p>{{ obj.content|linebreaks|truncatechars:120 }}</p>
+          <a href="{% url 'profile' obj.author.username %}" ><h6>{{ obj.author.first_name }} {{ obj.author.last_name }}</h6></a>
+        <p><a href="#" class="btn btn-primary" role="button">View</a></p>
+      </div>
+    </div>
+  </div>
+<hr/>
+</div>
+{% endfor %}
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% endblock %}

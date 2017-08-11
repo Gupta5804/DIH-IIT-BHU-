@@ -1,0 +1,23 @@
+{% extends "home.html" %}
+
+
+{% block title %}
+{{ instance.title }} | {{ block.super }}
+{% endblock title %}
+
+
+
+{% block apps %}
+
+<div class="profile-content">
+    <h1>{{ title }}</h1>
+    {% if instance.image %}
+    <img src="{{ instance.image.url }}" class="img-responsive" />
+    {% endif %}
+    {{ instance.user }}<br/>
+    {{ instance.timestamp }}<br/>
+    {{ instance.content|linebreaks }}<br/>
+
+</div>
+
+{% endblock apps %}

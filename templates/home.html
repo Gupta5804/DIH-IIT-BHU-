@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<link rel='stylesheet prefetch' href='{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}'>
+    <div class="container">
+        <div class="col-md-3" >
+            <div class="row profile">
+                <div class="profile-sidebar" >
+                    <!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="{{ user.userprofile.get_picture }}" class="img-responsive" alt="">
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						<a href="{% url 'account_view' pk=user.id %}"> {{ user.first_name }} {{ user.last_name }}</a>
+					</div>
+					<div class="profile-usertitle-job">
+						{{ user.userprofile.get_year_display }} year,{{ user.userprofile.get_branch_display }}
+					</div>
+                    <div class="profile-usertitle-job">
+						{{ user.email }}
+					</div>
+                    <div>
+                        message id : {{ user.username }}
+
+                  <a href="#" id="notifications" data-container="body" data-toggle="popover" data-placement="bottom" title="Notifications">
+                    <span class="fa fa-bell-o"></span>
+                  </a>
+
+                    </div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					<a href="{% url 'account_update' pk=user.id %}" type="button" class="btn btn-success btn-sm">Edit</a>
+                    <a href="{% url 'picture'%}" type="button" class="btn btn-success btn-xs">Profile pic update</a>
+
+
+
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav nav-tabs nav-stacked" >
+
+                        <li >
+							<a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i><span class="badge pull-right" id="unread-count">0</span> Inbox</a>
+						</li>
+						<li >
+							<a href="/events/">
+							<i class="fa fa-dashboard"></i>
+							Events </a>
+						</li>
+						<li>
+							<a href="/lan_complain/">
+							<i class="glyphicon glyphicon-user"></i>
+							Lan Complain </a>
+						</li>
+						<li>
+							<a href="/enotices/" >
+							<i class="glyphicon glyphicon-ok"></i>
+							e-Notices</a>
+						</li>
+                        <li>
+							<a href="/LostAndFound/" >
+							<i class="glyphicon glyphicon-ok"></i>
+							Lost And Found</a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-flag"></i>
+							About </a>
+						</li>
+					</ul>
+				</div>
+                  <aside class="sm-side">
+
+                      <div class="inbox-body text-center">
+                          <div class="btn-group">
+                              <a class="btn mini btn-primary" href="/accounts/logout">
+                                  <i class="fa fa-sign-out"></i>
+                              </a>
+                          </div>
+                          <div class="btn-group">
+                              <a class="btn mini btn-success" href="javascript:;">
+                                  <i class="fa fa-phone"></i>
+                              </a>
+                          </div>
+                          <div class="btn-group">
+                              <a class="btn mini btn-info" href="javascript:;">
+                                  <i class="fa fa-cog"></i>
+                              </a>
+                          </div>
+                      </div>
+
+                  </aside>
+                </div>
+         </div>
+        </div>
+         <div class="col-md-9" >
+         <div class="loader"></div>
+             {% block apps %}
+
+                            <h2 class="well">Feeds</h2>
+             {% endblock %}
+         </div>
+    </div>
+
+
+{% endblock %}

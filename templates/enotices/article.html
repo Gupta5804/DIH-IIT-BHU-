@@ -1,0 +1,21 @@
+{% extends 'home.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block head %}
+  <link href="{% static 'css/articles.css' %}" rel="stylesheet">
+  <script src="{% static 'js/articles.js' %}"></script>
+{% endblock head %}
+
+{% block apps %}
+    <div class="profile-content">
+  <ol class="breadcrumb">
+    <li><a href="{% url 'articles' %}">{% trans 'Articles' %}</a></li>
+    <li class="active">{% trans 'Article' %}</li>
+  </ol>
+  {% include 'enotices/partial_article.html' with article=article %}
+  {% include 'enotices/partial_article_comments.html' with article=article %}
+</div>
+{% endblock apps %}

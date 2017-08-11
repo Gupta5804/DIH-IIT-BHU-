@@ -1,0 +1,14 @@
+
+{% extends "home.html" %}
+
+
+{% block apps %}
+    <div class="profile-content">
+<h1>Report Lost</h1>
+
+<form method='POST' action='' enctype="multipart/form-data">{% csrf_token %}
+{{ form.as_p }}
+<input type='submit' value='Create Post' />
+</form>
+    </div>
+{% endblock apps %}
